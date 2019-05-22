@@ -1,0 +1,76 @@
+.films-item {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.film-img {
+  width: 170px;
+  vertical-align: middle;
+}
+
+.film-content {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+}
+
+.film-title {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: rgb(45, 52, 58);
+  text-transform: uppercase;
+}
+
+.film-release, .film-format {
+  margin: 10px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(45, 52, 58);
+}
+
+.film-starring {
+  color: rgb(45, 52, 58);;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.film-starlist-item {
+  margin-top: 5px;
+  color: rgb(45, 52, 58);;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+.film-starlist-item::after {
+  content: ",\00a0";
+}
+
+.film-starlist-item:last-child::after {
+  content: "";
+}
+
+.film-btn {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(45, 52, 58);;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.film-btn:hover {
+  border: 1px solid rgba(0,0,0,.72);
+  border-radius: 20px;
+  transition: .9s;
+}

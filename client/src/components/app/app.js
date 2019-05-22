@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //Components
 import { Navbar, Footer, Main } from '../layout';
 import Films from '../films';
+import Film from '../film';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -22,6 +23,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/menu" component={Films} />
+              <Route exact path="/film/:id" component={Film} />
             </Switch>
           <Footer />
         </Router>

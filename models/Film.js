@@ -19,6 +19,13 @@ const FilmSchema = new Schema({
     type: [String],
     required: true
   },
+  description: {
+    type: String,
+    maxlength: 300
+  },
+  poster: {
+    type: String
+  },
   last_updated: Date
 }, {
   timestamps: true
