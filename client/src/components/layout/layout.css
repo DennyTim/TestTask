@@ -1,0 +1,142 @@
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  background-color: rgb(45, 52, 58);
+  padding: 30px 0;
+  overflow: hidden;
+  z-index: 1; 
+  text-align: right;
+}
+
+.nav-elem {
+  display: flex;
+}
+
+.navbar-link {
+  margin-left: 30px;
+  position: relative;
+  padding-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(240, 240, 240, 0.7);
+  text-transform: uppercase;
+  text-decoration: none; 
+  transition: all 0.6s;
+}
+
+.navbar-link::after {
+  display: block;
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 0;
+  background-color: #fff;
+  transition: all .5s ease-in-out;
+  left: 0;
+  bottom: 0;
+}
+
+.navbar-link:hover::after{
+  width: 100%;
+}
+
+.navbar-link:hover {
+  color: #fff;
+}
+
+.navbar-logo {
+  width: 70%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.fa-play-circle {
+  font-size: 30px;
+  color: #fff;
+}
+
+.navbar-logo-slogan {
+  display: inline-block;
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.main {
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url("../../img/cinema.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 190px 0;
+}
+
+.main-header {
+  font-size: 70px;
+  font-family: 'Montserrat', sans-serif;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.main-description {
+  margin-top: 20px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.main-btn {
+  width: 150px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.btn-green {
+  background-color: rgb(12, 187, 214);
+  margin-right: 20px;
+}
+
+.btn-blue {
+  background-color: rgb(138, 203, 98);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(45, 52, 58);
+  padding: 30px 0;
+  z-index: 1; 
+  text-align: center;
+}
+
+.footer-copyright {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: #fff;
+}

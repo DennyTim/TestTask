@@ -1,0 +1,12 @@
+/.idea
+/.vscode
+/config/default.json
+
+# dependencies
+/node_modules
+**/node_modules
+# testing
+/coverage
+
+# production
+/build
