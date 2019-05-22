@@ -1,4 +1,4 @@
-import { GET_FILMS, GET_FILM } from '../actions/types';
+import { GET_FILMS, GET_FILM, DELETE_FILM } from '../actions/types';
 
 const initialState = {
   films: [],
@@ -25,7 +25,13 @@ export default function(state = initialState, action) {
         film: payload,
         loading: false
       };
-
+    
+    case DELETE_FILM:
+      return {
+        film: {},
+        films: state.films.filter(item => item.id !== payload),
+        loading: false
+      };
     default:
       return state;
   }

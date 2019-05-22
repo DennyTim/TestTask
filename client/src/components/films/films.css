@@ -5,3 +5,10 @@
   flex-wrap: wrap;
 }
 
+.films-empty {
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+}

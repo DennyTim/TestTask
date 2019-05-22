@@ -25,7 +25,7 @@ const reqImg = (title, done) => {
         done(response.statusCode, null)
       }
 
-      done(null, JSON.parse(body).Poster);
+      done(null, JSON.parse(body));
     });
 
   } catch (error) {
@@ -50,10 +50,9 @@ app.get('/api/films/:id', async (req, res) => {
 });
 
 app.post('/api/films', async (req, res) => {
-  const {title, release, format, stars, description} = req.body;
+  const {title, format, stars, description} = req.body;
   const film = {};
   if(title) film.title = title;
-  if(release) film.release = release;
   if(format) film.format = format;
   if (stars) {
     film.starlist = stars.split(',').map(star => star.trim());
@@ -64,7 +63,8 @@ app.post('/api/films', async (req, res) => {
     reqImg(title, async (err, data) => {
       if(err) throw err;
 
-      if (data) film.poster = data;
+      if (data.Poster) film.poster = data.Poster;
+      if (data.Year) film.release = data.Year;
       const newFilm = new Film(film);
       const result = await newFilm.save();
       return res.json(result);

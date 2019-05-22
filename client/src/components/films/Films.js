@@ -18,15 +18,17 @@ class Films extends Component {
   }
 
   render () {
-
     const { films: { films, loading } } = this.props;
     return loading ? <Spinner /> : (
       <div className="container">
-        <ul className="films">
-          {films.map(item => (
-            <FilmItem key={item.uid} films={item} />
-          ))}
-        </ul>
+        {
+          !films.length ? <div className="films-empty">list is empty</div> :
+          <ul className="films">
+            {films.map(item => (
+              <FilmItem key={item.uid} films={item} />
+            ))}
+          </ul>
+        } 
       </div>
     );
   }

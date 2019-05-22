@@ -2,18 +2,31 @@ export default class LocalService {
 
   _apiBase = '/api';
 
-  async getResource(url) {
-    const res = await fetch(`${this._apiBase}${url}`);
+  async getResource(url, options) {
+    const res = await fetch(`${this._apiBase}${url}`, options);
     const body = await res.json();
     return body;
   }
 
   getAllFilms() {
-    return this.getResource('/films');
+    const options = {
+      method: "GET"
+    };
+    return this.getResource(`/films`, options);
   }
 
   getOneFilm(id) {
-    return this.getResource(`/films/${id}`);
+    const options = {
+      method: "GET"
+    };
+    return this.getResource(`/films/${id}`, options);
+  }
+
+  delFilm(id) {
+    const options = {
+      method: "DELETE"
+    };
+    return this.getResource(`/films/${id}`, options);
   }
 }
 
