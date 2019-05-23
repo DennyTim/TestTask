@@ -4,7 +4,8 @@ import {
   GET_FILM, 
   ADD_FILM, 
   DELETE_FILM,
-  GET_ENUM 
+  GET_ENUM,
+  ADD_FILE
 } from './types';
 
 export const getFilms = () => async dispatch => {
@@ -67,6 +68,19 @@ export const getListFormat = () => async dispatch => {
     const newData = await service.getEnum();
     dispatch({ 
       type: GET_ENUM,
+      payload: newData
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const sendDataFile = (file) => async dispatch => {
+  try {
+    const service = new LocalService();
+    const newData = await service.sendFile(file);
+    dispatch({ 
+      type: ADD_FILE,
       payload: newData
     });
   } catch (err) {

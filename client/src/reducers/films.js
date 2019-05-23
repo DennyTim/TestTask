@@ -3,12 +3,14 @@ import {
   GET_FILM,
   GET_ENUM,
   ADD_FILM, 
-  DELETE_FILM } from '../actions/types';
+  DELETE_FILM,
+  ADD_FILE } from '../actions/types';
 
 const initialState = {
   films: [],
   film: {},
   list: [],
+  file: {},
   loading: true
 }
 
@@ -50,6 +52,13 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         list: payload
+      }
+    
+    case ADD_FILE:
+      return {
+        ...state,
+        loading: false,
+        file: payload
       }
 
     default:

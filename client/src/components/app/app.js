@@ -6,6 +6,7 @@ import { Navbar, Footer, Main } from '../layout';
 import Films from '../films';
 import Film from '../film';
 import FilmForm from '../film-form';
+import ImportFilms from '../import-films';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -26,6 +27,7 @@ export default class App extends Component {
               <Route exact path="/menu" component={Films} />
               <Route exact path="/film/:id" component={Film} />
               <Route exact path="/add" component={FilmForm} />
+              <Route exact path="/import" component={ImportFilms} />
             </Switch>
           <Footer />
         </Router>

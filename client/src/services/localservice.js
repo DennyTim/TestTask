@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
 import Bluebird from 'bluebird';
-//import { createReadStream } from ('fs');
 fetch.Promise = Bluebird;
 
 export default class LocalService {
@@ -48,6 +47,16 @@ export default class LocalService {
       method: "GET"
     };
     return this.getResource(`/enum`, options);
+  }
+
+  sendFile(file) {
+    let formData = new FormData();
+    formData.append('file', file)
+    const options = {
+      method: 'POST',
+      body: formData
+    };
+    return this.getResource(`/import`, options);
   }
 }
 

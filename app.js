@@ -2,7 +2,9 @@ const express = require('express');
 const connectDB = require('./config/db');
 const fetch = require('node-fetch');
 const Bluebird = require('bluebird');
-const bodyParser = require('body-parser');
+const multer  = require('multer')
+
+let upload = multer();
 
 //Require models
 const Film = require('./models/Film');
@@ -10,11 +12,11 @@ const Film = require('./models/Film');
 const app = express();
 connectDB();
 fetch.Promise = Bluebird;
-// app.use(express.json({ extended: false }));
-// app.use(express.urlencoded({extended: true}));
+app.use(express.json({ extended: false }));
+app.use(express.urlencoded({extended: true}));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 const reqImg = async (title, done) => {
   try {
@@ -47,6 +49,37 @@ app.get('/api/enum', async(req, res) => {
   res.status(200).json(result);
 });
 
+app.post('/api/import', upload.any(), async (req, res) => {
+  let data = req.files[0].buffer.toString('utf8');
+
+  //parse document
+  const arr = data.split('\n\n').reduce((acc, item) => {
+    let obj = {};
+    item.split('\n').map(el => {
+      if(el) return obj[`${el.split(/:/)[0].toLowerCase()}`] = el.split(/:/)[1];
+    });
+    return [...acc, obj];
+  },[]).filter(value => Object.keys(value).length !== 0)
+
+  //Save films
+  try {
+    let acc = arr.map((item) => {
+      const film = {};
+      if(item.title) film.title = item.title.trim();
+      if(item.format) film.format = item.format.trim();
+      if(item['release year']) film.release = (item['release year']).trim();
+      if (item.stars) film.starlist = item.stars.split(',').map(star => star.trim());
+      film.poster = 'https://via.placeholder.com/170x250/000000/FFFFFF/?text=NOPHOTO';
+      return film;
+    });
+    await Film.insertMany(acc);
+    return res.status(200).json({msg: 'ok'});
+  } catch (error) {
+    const { name, message } = error;
+    return res.json({ name, message});
+  }
+})
+
 app.post('/api/films', async (req, res) => {
   try {  
     const {title, format, release, stars, description} = req.body;
@@ -58,7 +91,7 @@ app.post('/api/films', async (req, res) => {
     }
     if(description) film.description = description;
     reqImg(title, async (err, data) => {
-      if(err) {
+      if(err || data.Poster === 'N/A') {
         if (release) film.release = release;
         film.poster = 'https://via.placeholder.com/170x250/000000/FFFFFF/?text=NOPHOTO';
         const newFilm = new Film(film);
@@ -72,10 +105,9 @@ app.post('/api/films', async (req, res) => {
       const result = await newFilm.save();
       return res.json(result);
     });
-
   } catch (error) {
     const { name, message } = error;
-    res.status(404).json({ name, message});
+    return res.status(404).json({ name, message});
   }
 });
 
@@ -88,7 +120,6 @@ app.delete('/api/films/:id', async(req, res) => {
     const { name, message } = error;
     res.status(404).json({ name, message});
   }
-
 });
 
 app.listen(5000, 'localhost', () => console.log('Сервер запущен!'));
