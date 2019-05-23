@@ -1,8 +1,14 @@
-import { GET_FILMS, GET_FILM, DELETE_FILM } from '../actions/types';
+import { 
+  GET_FILMS, 
+  GET_FILM,
+  GET_ENUM,
+  ADD_FILM, 
+  DELETE_FILM } from '../actions/types';
 
 const initialState = {
   films: [],
   film: {},
+  list: [],
   loading: true
 }
 
@@ -32,6 +38,20 @@ export default function(state = initialState, action) {
         films: state.films.filter(item => item.id !== payload),
         loading: false
       };
+
+    case ADD_FILM:
+      return {
+        ...state,
+        films: [...state.films, payload],
+        loading: false
+      };
+    case GET_ENUM:
+      return {
+        ...state,
+        loading: false,
+        list: payload
+      }
+
     default:
       return state;
   }

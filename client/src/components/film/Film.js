@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFilm, deleteFilm } from '../../actions/films';
+import PropTypes from 'prop-types';
 import Spinner from '../spinner';
 
 import './film.css';

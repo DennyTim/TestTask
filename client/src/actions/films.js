@@ -1,5 +1,11 @@
 import LocalService from '../services/localservice';
-import { GET_FILMS, GET_FILM, DELETE_FILM } from './types';
+import { 
+  GET_FILMS, 
+  GET_FILM, 
+  ADD_FILM, 
+  DELETE_FILM,
+  GET_ENUM 
+} from './types';
 
 export const getFilms = () => async dispatch => {
   try {
@@ -36,6 +42,33 @@ export const deleteFilm = (id, history) => async dispatch => {
       payload: id
     });
     history.push('/menu');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const addFilm = (data, history) => async dispatch => {
+  try {
+    const service = new LocalService();
+    const newData = await service.addOne(data);
+    dispatch({ 
+      type: ADD_FILM,
+      payload: newData
+    });
+    history.push('/menu');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const getListFormat = () => async dispatch => {
+  try {
+    const service = new LocalService();
+    const newData = await service.getEnum();
+    dispatch({ 
+      type: GET_ENUM,
+      payload: newData
+    });
   } catch (err) {
     console.log(err);
   }

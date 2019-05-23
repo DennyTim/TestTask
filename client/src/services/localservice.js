@@ -1,3 +1,8 @@
+import fetch from 'node-fetch';
+import Bluebird from 'bluebird';
+//import { createReadStream } from ('fs');
+fetch.Promise = Bluebird;
+
 export default class LocalService {
 
   _apiBase = '/api';
@@ -27,6 +32,22 @@ export default class LocalService {
       method: "DELETE"
     };
     return this.getResource(`/films/${id}`, options);
+  }
+
+  addOne(data) {
+    const options = {
+      method: 'post',
+      body:    JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    }
+    return this.getResource(`/films`, options);
+  }
+
+  getEnum() {
+    const options = {
+      method: "GET"
+    };
+    return this.getResource(`/enum`, options);
   }
 }
 

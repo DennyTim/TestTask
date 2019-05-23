@@ -12,3 +12,26 @@
   font-weight: 700;
   text-transform: uppercase;
 }
+
+.btn-add {
+  margin: 10px 0;
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(138, 203, 98);
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 40px;
+  background-color: #fff;
+  border: 1px solid rgb(138, 203, 98);
+  transition: .5s;
+}
+
+.btn-add:hover {
+  background-color: rgb(138, 203, 98);
+  color: #fff;
+}

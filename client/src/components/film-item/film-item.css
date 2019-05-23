@@ -1,5 +1,5 @@
 .films-item {
-  margin-right: 10px;
+  flex-basis: 33%;
   margin-bottom: 20px;
   text-align: left;
 }

@@ -1,6 +1,5 @@
 //React
 import React, { Component } from 'react';
-
 //Components
 import FilmItem from '../film-item';
 import Spinner from '../spinner';
