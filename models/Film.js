@@ -16,8 +16,7 @@ const FilmSchema = new Schema({
     enum: ['VHS', 'DVD', 'Blu-Ray'] 
   },
   starlist: {
-    type: [String],
-    required: true
+    type: [String]
   },
   description: {
     type: String,

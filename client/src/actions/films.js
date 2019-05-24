@@ -1,11 +1,14 @@
 import LocalService from '../services/localservice';
+import uuid from 'uuid';
 import { 
   GET_FILMS, 
   GET_FILM, 
   ADD_FILM, 
   DELETE_FILM,
   GET_ENUM,
-  ADD_FILE
+  ADD_FILE,
+  SET_ALERT,
+  REMOVE_ALERT
 } from './types';
 
 export const getFilms = () => async dispatch => {
@@ -52,13 +55,22 @@ export const addFilm = (data, history) => async dispatch => {
   try {
     const service = new LocalService();
     const newData = await service.addOne(data);
-    dispatch({ 
-      type: ADD_FILM,
-      payload: newData
-    });
-    history.push('/menu');
+    if(!newData.errors) {
+      dispatch({ 
+        type: ADD_FILM,
+        payload: newData
+      });
+      history.push('/menu');
+    } else {
+      throw newData.errors
+    }
   } catch (err) {
-    console.log(err);
+    const id = uuid.v4();           //модуль уникального идентификатора
+    dispatch({
+        type: SET_ALERT,
+        payload: { msg: err, id}
+    });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 5000);
   }
 }
 
@@ -75,7 +87,7 @@ export const getListFormat = () => async dispatch => {
   }
 }
 
-export const sendDataFile = (file) => async dispatch => {
+export const sendDataFile = (file, history) => async dispatch => {
   try {
     const service = new LocalService();
     const newData = await service.sendFile(file);
@@ -83,6 +95,7 @@ export const sendDataFile = (file) => async dispatch => {
       type: ADD_FILE,
       payload: newData
     });
+    history.push('/menu');
   } catch (err) {
     console.log(err);
   }

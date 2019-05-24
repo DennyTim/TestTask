@@ -3,19 +3,19 @@ import { sendDataFile } from '../../actions/films';
 import { connect } from 'react-redux';
 import './import-films.css';
 
-const ImportFilms = ({ sendDataFile }) => {
+const ImportFilms = ({ sendDataFile, history }) => {
 
   const [datafile, setFile] = useState({
-    data: "", 
+    file: "", 
     preview: "", 
     error: {}
   });
 
-  const { preview, file } = datafile;
+  const { file } = datafile;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendDataFile(file);
+    sendDataFile(file, history);
   }
 
   const handleImageChange = (e) => {
@@ -35,8 +35,8 @@ const ImportFilms = ({ sendDataFile }) => {
   }
 
   return (
-    <div>
-      <form onSubmit={(e)=> handleSubmit(e)}>
+    <div className="container">
+      <form className="center" onSubmit={(e)=> handleSubmit(e)}>
         <input className="fileInput" 
           type="file" 
           onChange={(e)=> handleImageChange(e)} />
@@ -44,9 +44,6 @@ const ImportFilms = ({ sendDataFile }) => {
           type="submit" 
           onClick={(e)=> handleSubmit(e)}>Upload Image</button>
       </form>
-      <div className="imgPreview">
-        {preview}
-      </div>
     </div>
   )
 };

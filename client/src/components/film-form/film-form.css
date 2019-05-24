@@ -1,3 +1,114 @@
 .dropdown {
   margin: 50px;
 }
+
+.alert {
+  width: 50%;
+  padding: 10px;
+  margin: 1rem 0;
+  opacity: .9;
+  font-family: 'Montserrat', sans-serif;
+  background: #dc3545;
+  color: #fff;
+}
+
+.form-link {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(45, 52, 58);;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.form-link:hover {
+  border: 1px solid rgba(0,0,0,.72);
+  border-radius: 20px;
+  transition: .9s;
+}
+
+.form-title {
+  margin-top: 20px;
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: rgb(45, 52, 58);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.form-film-item {
+  margin: 20px 0;
+}
+
+.form-film-item input{
+  display: block;
+  width: 50%;
+  padding: .4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+
+.form-film-item textarea {
+  width: 50%;
+  padding: .4rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  resize: none;
+}
+
+.form-film-format {
+  display: block;
+  width: 50%;
+  padding: .4rem;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(163, 163, 163);
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  cursor: pointer;
+}
+
+li.form-film-format {
+  font-family: 'Montserrat', sans-serif;
+  color: #000;
+}
+
+.form-film-format:first-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.form-film-format:last-child {
+  border-bottom: 1px solid #ccc;
+}
+
+.form-film-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 40px;
+  background-color: #fff;
+  border: 1px solid rgba(51, 158, 30, 0.72);
+  color: rgba(51, 158, 30, 0.72);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: .5s;
+}
+
+.form-film-btn:hover {
+  background-color: rgba(51, 158, 30, 0.72);
+  border: 1px solid transparent;
+  color: #fff;
+}

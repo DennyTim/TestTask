@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addFilm, getListFormat } from '../../actions/films';
 import './film-form.css';
 
-const FilmForm = ({ addFilm, getListFormat, history, list }) => {
+const FilmForm = ({ addFilm, getListFormat, history, list, error: { alert } }) => {
 
   const [data, setData] = useState({title: "", format: "Change format", stars: "", description: ""});
   const [menuList, toggledList] = useState(false);
@@ -25,8 +25,9 @@ const FilmForm = ({ addFilm, getListFormat, history, list }) => {
 
   return (
     <div className="container">
-      <Link to="/menu" className="form-link">Menu</Link>
       <h1 className="form-title">Add New Film</h1>
+       {alert.length > 0 && 
+        alert[0].msg.map((item, index) => <div className="alert" key={index}>{item.msg}</div>)}
       <form
          className="form-film"
          onSubmit={e => {
@@ -42,14 +43,13 @@ const FilmForm = ({ addFilm, getListFormat, history, list }) => {
             onChange={ e => onChange(e)}/>
         </div>
         <div className="form-film-item">
-          <button onClick={() => toggledList(!menuList)}>Click here</button> 
-          <p onChange={ e => onChange(e)}
+          <p className="form-film-format" onChange={ e => onChange(e)}
               onClick={() => toggledList(!menuList)}>{format}</p>
           <ul>
           {
             menuList ? 
               list.map((item, index) => 
-                <li onClick={e => {
+                <li className="form-film-format" onClick={e => {
                   onClick(e)
                   toggledList(!menuList)
                 }} key={index}>{item}</li>)
@@ -64,6 +64,7 @@ const FilmForm = ({ addFilm, getListFormat, history, list }) => {
             name="release" 
             value={release}
             onChange={ e => onChange(e)}/>
+            {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <div className="form-film-item">
           <input 
@@ -72,17 +73,23 @@ const FilmForm = ({ addFilm, getListFormat, history, list }) => {
             name="stars" 
             value={stars}
             onChange={ e => onChange(e)}/>
+            {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <div className="form-film-item">
-          <input 
-            type="text" 
-            placeholder="Description" 
-            name="description" 
+          <textarea
+            name="description"
+            cols="30"
+            rows="5"
+            placeholder="Create a post"
             value={description}
-            onChange={ e => onChange(e)}/>
+            onChange={ e => onChange(e)}
+            >
+          </textarea>
+          {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <input type="submit" className="form-film-btn" />
       </form>
+      <Link to="/menu" className="form-link">Back</Link>
     </div>    
   )
 };
@@ -93,7 +100,8 @@ FilmForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  list: state.films.list
+  list: state.films.list,
+  error: state
 });
 
 export default connect(mapStateToProps, { addFilm, getListFormat })(FilmForm);

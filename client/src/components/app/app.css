@@ -1,8 +1,24 @@
-body {
-  /* overflow: hidden; */
-}
-
 .container {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.fa-exclamation-triangle {
+  font-size: 4rem;
+}
+
+.x-large {
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 4rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.large {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }

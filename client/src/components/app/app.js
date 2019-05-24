@@ -7,6 +7,7 @@ import Films from '../films';
 import Film from '../film';
 import FilmForm from '../film-form';
 import ImportFilms from '../import-films';
+import NotFound from '../not-found/NotFound';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -28,6 +29,7 @@ export default class App extends Component {
               <Route exact path="/film/:id" component={Film} />
               <Route exact path="/add" component={FilmForm} />
               <Route exact path="/import" component={ImportFilms} />
+              <Route component={NotFound} />
             </Switch>
           <Footer />
         </Router>
