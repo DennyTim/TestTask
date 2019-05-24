@@ -42,7 +42,7 @@ const ImportFilms = ({ sendDataFile, history }) => {
           onChange={(e)=> handleImageChange(e)} />
         <button className="submitButton" 
           type="submit" 
-          onClick={(e)=> handleSubmit(e)}>Upload Image</button>
+          onClick={(e)=> handleSubmit(e)}>Upload Films</button>
       </form>
     </div>
   )

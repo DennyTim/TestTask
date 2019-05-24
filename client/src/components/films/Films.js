@@ -76,6 +76,7 @@ class Films extends Component {
   
     render() {
       const { displayedfilms, fieldOfSearch } = this.state;
+      
       return (!displayedfilms) ? <Spinner /> : (
         <div className="container">
           <div className="search"> 
@@ -92,10 +93,11 @@ class Films extends Component {
             </div>
           </div>
           <ul className="block-films">
-            {
+            { displayedfilms.length > 0 ?
               displayedfilms.map(function(el) {
                 return <FilmItem key={el.uid} films={el}/>;
-              })
+              }) :
+              (<div className="empty-title">Empty list</div>)
             }
           </ul>
         </div>

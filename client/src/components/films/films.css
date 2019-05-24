@@ -119,3 +119,12 @@
 .search-block input[type="search"]::-ms-input-placeholder {
   color: white;
 }
+
+.empty-title {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: rgb(45, 52, 58);
+  text-transform: uppercase;
+}
