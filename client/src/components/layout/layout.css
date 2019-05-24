@@ -6,7 +6,7 @@
 
 .navbar {
   background-color: rgb(45, 52, 58);
-  padding: 30px 0;
+  padding: 15px 0;
   overflow: hidden;
   z-index: 1; 
   text-align: right;
@@ -50,7 +50,7 @@
 }
 
 .navbar-logo {
-  width: 60%;
+  width: 40%;
   text-align: left;
   text-decoration: none;
 }
@@ -75,7 +75,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 190px 0;
+  padding: 220px 0;
 }
 
 .main-header {
@@ -126,11 +126,12 @@
 }
 
 .footer {
+  margin-top: 20px;
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: rgb(45, 52, 58);
-  padding: 30px 0;
+  padding: 15px 0;
   z-index: 1; 
   text-align: center;
 }

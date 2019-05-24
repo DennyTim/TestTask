@@ -4,7 +4,7 @@ import './film-item.css';
 
 const FilmItem = ({ films }) => {
 
-  const { title, release, format, starlist, id, poster } = films;
+  const { title, release, format, starlist, uid, poster } = films;
 
   return (
     <Fragment>
@@ -22,7 +22,7 @@ const FilmItem = ({ films }) => {
               <li className="film-starlist-item" key={index}>{item}</li>
             ))}
           </ul>
-          <Link className="film-btn" to={`/film/${id}`}>More</Link>
+          <Link className="film-btn" to={`/film/${uid}`}>More</Link>
         </div>
       </li>
     </Fragment>

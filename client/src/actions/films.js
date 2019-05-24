@@ -21,10 +21,10 @@ export const getFilms = () => async dispatch => {
   }
 }
 
-export const getFilm = (id) => async dispatch => {
+export const getFilm = (uid) => async dispatch => {
   try {
     const service = new LocalService();
-    const data = await service.getOneFilm(id);
+    const data = await service.getOneFilm(uid);
     dispatch({
       type: GET_FILM,
       payload: data
@@ -34,13 +34,13 @@ export const getFilm = (id) => async dispatch => {
   }
 }
 
-export const deleteFilm = (id, history) => async dispatch => {
+export const deleteFilm = (uid, history) => async dispatch => {
   try {
     const service = new LocalService();
-    await service.delFilm(id);
+    await service.delFilm(uid);
     dispatch({ 
       type: DELETE_FILM,
-      payload: id
+      payload: uid
     });
     history.push('/menu');
   } catch (err) {

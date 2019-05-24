@@ -40,7 +40,7 @@ app.get('/api/films', async (req, res) => {
 });
 
 app.get('/api/films/:id', async (req, res) => {
-  const film = await Film.findById(req.params.id);
+  const film = await Film.findOne({uid: req.params.id});
   res.status(200).json(film);
 });
 

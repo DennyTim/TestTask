@@ -9,13 +9,13 @@ import './film.css';
 
 const Film = ({ getFilm, deleteFilm, match, history, film: { film, loading } }) => {
 
-  const { id, title, poster, release, format, description, starlist } = film;
+  const { uid, title, poster, release, format, description, starlist } = film;
 
   useEffect(() => {
     getFilm(match.params.id)
   }, [getFilm, match.params.id]);
 
-  return loading || match.params.id !== id ? <Spinner /> : (
+  return loading || match.params.id !== uid ? <Spinner /> : (
     <div className="container">
       <Link className="more-btn" to='/menu'>Back to menu</Link>
       <div className="wrapper">
@@ -35,7 +35,7 @@ const Film = ({ getFilm, deleteFilm, match, history, film: { film, loading } }) 
               <li className="more-starlist-item" key={index}>{item}</li>
             )}
           </ul>
-          <button className="btn-trash" onClick={() => deleteFilm(id, history) }>Delete film</button>
+          <button className="btn-trash" onClick={() => deleteFilm(uid, history) }>Delete film</button>
         </div>
       </div>
     </div>
