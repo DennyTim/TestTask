@@ -22,7 +22,6 @@ const reqImg = async (title, done) => {
 }
 
 router.get('/films', async (req, res) => {
-  console.log(req.body);
   try {
     const films = await Film.find({}).sort({ title: 1});
     res.json(films);
@@ -45,6 +44,9 @@ router.get('/enum', async(req, res) => {
 router.post('/import', upload.any(), async (req, res) => {
     if(!req.files[0]) {
       return res.status(400).json('File not founded')
+    }
+    if(req.files[0].size > 5242880) {
+      return res.status(400).json('Maximum size is 5mb')
     }
     let extension = req.files[0].originalname.match(/\.[0-9a-z]+$/i)[0].toLowerCase();
     if(extension !== '.txt'){
@@ -82,7 +84,9 @@ router.post('/import', upload.any(), async (req, res) => {
 router.post('/films', [
     check('title', 'Title is required').not().isEmpty(),
     check('format').isIn(['VHS', 'DVD', 'Blu-Ray']),
-    check('release', 'Release incorrect').isLength({ min: 4, max: 4 }),
+    check('release', 'Release incorrect')
+      .isLength({ min: 4, max: 4 })
+      .custom(release => release > 1895 && release < 2020),
     check('stars', 'Starlist is required').not().isEmpty(),
     check('description', 'Description must should have less 300 characters ').isLength({ max: 300 })
   ], async (req, res) => {

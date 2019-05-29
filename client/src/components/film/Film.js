@@ -15,8 +15,38 @@ const Film = ({ getFilm, deleteFilm, match, history, film: { film, loading } }) 
     getFilm(match.params.id)
   }, [getFilm, match.params.id]);
 
+  const modalOpen = (e) => {
+    let modalWindow = document.querySelector('.modal');
+    let pos = -100;
+    let clear = setInterval(function() {
+      pos < 0 ? modalWindow.style.top = `${pos+=4}%` : clearInterval(clear);
+    }, 10);
+    window.addEventListener('click', modalClose);
+  }
+
+  const modalClose = (e) => {
+    let modalWindow = document.querySelector('.modal');
+    let pos = 0;
+    if (e.target === modalWindow || e.target.classList.contains('fa-times')) {
+      let clear = setInterval(function() {
+        pos > -100 ? modalWindow.style.top = `${pos-=5}%` : clearInterval(clear);
+      }, 10);
+      window.removeEventListener('click', modalClose);
+    }    
+  }
+
   return loading || match.params.id !== uid ? <Spinner /> : (
     <div className="container">
+      <div className="modal">
+        <div className="modal-content">
+          <h1 className="modal-text">Are you sure you want to delete {title} ?</h1>
+          <p className="modal-description">After pressing the button, the data cannot be restored.</p>
+          <button className="modal-trash" onClick={() => deleteFilm(uid, history) }>Delete</button>
+          <button className="btn-close" onClick={(e) => modalClose(e)}>
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
       <Link className="more-btn" to='/menu'>Back to menu</Link>
       <div className="wrapper">
         <img className="more-img" 
@@ -35,7 +65,7 @@ const Film = ({ getFilm, deleteFilm, match, history, film: { film, loading } }) 
               <li className="more-starlist-item" key={index}>{item}</li>
             )}
           </ul>
-          <button className="btn-trash" onClick={() => deleteFilm(uid, history) }>Delete film</button>
+          <button className="btn-trash" onClick={(e) => modalOpen(e)}>Delete film</button>
         </div>
       </div>
     </div>

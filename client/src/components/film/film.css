@@ -2,6 +2,67 @@
   margin: 0 0 50px;
 }
 
+.modal {
+  position: fixed; /* Stay in place */
+	z-index: 5; /* Sit on top */
+	left: 0;
+	top: -100%;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+  width: 40%;
+  position: relative;
+}
+
+.modal-text {
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.modal-description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+}
+
+.modal-trash {
+  margin: 10px 0;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 40px;
+  background-color: rgba(201, 19, 19, 0.72);
+  border: none;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #fff;
+  border: none;
+  margin-top: 10px;
+  margin-right: 10px;
+  outline: none;
+}
+
 .more-img {
   max-width: 280px;
 }

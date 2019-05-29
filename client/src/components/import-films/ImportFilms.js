@@ -51,7 +51,7 @@ const ImportFilms = ({ sendDataFile, history }) => {
           }} />
         <button className="submitButton" 
           type="submit" 
-          disabled={status}
+          disabled={!status}
           onClick={(e)=> {
             setFile({
               file: '',

@@ -1,13 +1,11 @@
 import LocalService from '../services/localservice';
-import uuid from 'uuid';
+import { setAlert } from './alert';
 import { 
   GET_FILMS, 
   GET_FILM, 
   ADD_FILM, 
   DELETE_FILM,
   GET_ENUM,
-  SET_ALERT,
-  REMOVE_ALERT
 } from './types';
 
 export const getFilms = () => async dispatch => {
@@ -39,11 +37,12 @@ export const getFilm = (uid) => async dispatch => {
 export const deleteFilm = (uid, history) => async dispatch => {
   try {
     const service = new LocalService();
-    await service.delFilm(uid);
+    let result = await service.delFilm(uid);
     dispatch({ 
       type: DELETE_FILM,
       payload: uid
     });
+    setAlert(result.msg, 'success', 3000)(dispatch)
     history.push('/menu');
   } catch (err) {
     console.log(err);
@@ -64,12 +63,9 @@ export const addFilm = (data, history) => async dispatch => {
       throw newData.errors
     }
   } catch (err) {
-    const id = uuid.v4();           //модуль уникального идентификатора
-    dispatch({
-        type: SET_ALERT,
-        payload: { msg: err, id}
+    err.errors.forEach(function(item){
+      setAlert(item.msg, 'warning', 2000)(dispatch);
     });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 5000);
   }
 }
 
@@ -93,21 +89,11 @@ export const sendDataFile = (file, history) => async dispatch => {
     if(newData.errors) {
       throw newData.errors
     } 
-    const id = uuid.v4();
-    dispatch({
-        type: SET_ALERT,
-        payload: { msg: newData.msg, id, alertType: 'success'}
-    });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 3000);
+    setAlert(newData.msg, 'success', 3000)(dispatch);
     history.push('/menu');
     return true;
   } catch (err) {
-    const id = uuid.v4();
-    dispatch({
-      type: SET_ALERT,
-      payload: { msg: err, id, alertType: 'warning'}
-    });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 3000);
+    setAlert(err, 'warning', 3000)(dispatch);
     return false;
   }
 }
