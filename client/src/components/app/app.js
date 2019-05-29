@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //Components
-import { Navbar, Footer, Main } from '../layout';
+import { Navbar, Footer, Main, Alert } from '../layout';
 import Films from '../films';
 import Film from '../film';
 import FilmForm from '../film-form';
@@ -23,6 +23,7 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <Navbar />
+          <Alert />
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/menu" component={Films} />

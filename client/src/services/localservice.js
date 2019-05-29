@@ -7,17 +7,26 @@ export default class LocalService {
   _apiBase = '/api';
 
   async getResource(url, options) {
-    const res = await fetch(`${this._apiBase}${url}`, options);
-    const body = await res.json();
-    return body;
+    try {
+      let res = await fetch(`${this._apiBase}${url}`, options);
+      if (res.status !== 200) {
+        return {
+          status: res.status,
+          errors: await res.json()
+        }
+      }
+      const body = await res.json();
+      return body;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async getAllFilms() {
     const options = {
       method: "GET"
     };
-    
-    return await this.getResource(`/films`, options);
+    return this.getResource(`/films`, options);
   }
 
   getOneFilm(id) {

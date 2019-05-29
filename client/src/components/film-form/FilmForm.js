@@ -64,7 +64,6 @@ const FilmForm = ({ addFilm, getListFormat, history, list, error: { alert } }) =
             name="release" 
             value={release}
             onChange={ e => onChange(e)}/>
-            {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <div className="form-film-item">
           <input 
@@ -73,7 +72,6 @@ const FilmForm = ({ addFilm, getListFormat, history, list, error: { alert } }) =
             name="stars" 
             value={stars}
             onChange={ e => onChange(e)}/>
-            {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <div className="form-film-item">
           <textarea
@@ -85,7 +83,6 @@ const FilmForm = ({ addFilm, getListFormat, history, list, error: { alert } }) =
             onChange={ e => onChange(e)}
             >
           </textarea>
-          {/* {error && (<div className="invalid-feedback">{error}</div>)} */}
         </div>
         <input type="submit" className="form-film-btn" />
       </form>

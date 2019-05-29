@@ -6,7 +6,6 @@ import {
   ADD_FILM, 
   DELETE_FILM,
   GET_ENUM,
-  ADD_FILE,
   SET_ALERT,
   REMOVE_ALERT
 } from './types';
@@ -87,15 +86,28 @@ export const getListFormat = () => async dispatch => {
   }
 }
 
-export const sendDataFile = (file) => async dispatch => {
+export const sendDataFile = (file, history) => async dispatch => {
   try {
     const service = new LocalService();
     const newData = await service.sendFile(file);
-    dispatch({ 
-      type: ADD_FILE,
-      payload: newData
+    if(newData.errors) {
+      throw newData.errors
+    } 
+    const id = uuid.v4();
+    dispatch({
+        type: SET_ALERT,
+        payload: { msg: newData.msg, id, alertType: 'success'}
     });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 3000);
+    history.push('/menu');
+    return true;
   } catch (err) {
-    console.log(err);
+    const id = uuid.v4();
+    dispatch({
+      type: SET_ALERT,
+      payload: { msg: err, id, alertType: 'warning'}
+    });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id}), 3000);
+    return false;
   }
 }

@@ -22,6 +22,7 @@ const reqImg = async (title, done) => {
 }
 
 router.get('/films', async (req, res) => {
+  console.log(req.body);
   try {
     const films = await Film.find({}).sort({ title: 1});
     res.json(films);
@@ -42,13 +43,14 @@ router.get('/enum', async(req, res) => {
 });
 
 router.post('/import', upload.any(), async (req, res) => {
-
-    let data = req.files[0].buffer.toString('utf8');
-
-    if(!data) {
-      return res.status(500).json('File not founded');
+    if(!req.files[0]) {
+      return res.status(400).json('File not founded')
     }
-
+    let extension = req.files[0].originalname.match(/\.[0-9a-z]+$/i)[0].toLowerCase();
+    if(extension !== '.txt'){
+      return res.status(400).json('Incorrect file')
+    }
+    let data = req.files[0].buffer.toString('utf8');
     //parse document
     const arr = data.split('\n\n').reduce((acc, item) => {
       let obj = {};
@@ -123,7 +125,7 @@ router.delete('/films/:id', async(req, res) => {
   try {
     const film = await Film.findOne({uid: req.params.id});
     await film.remove();
-    res.status(201).json({ msg: 'Film removed'});
+    res.status(200).json({ msg: 'Film removed'});
   } catch (error) {
     const { name, message } = error;
     res.status(404).json({ name, message});

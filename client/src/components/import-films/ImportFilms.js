@@ -1,32 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { sendDataFile } from '../../actions/films';
 import { connect } from 'react-redux';
 import Spinner from '../spinner';
 import './import-films.css';
 
-const ImportFilms = ({ sendDataFile, data, history }) => {
+const ImportFilms = ({ sendDataFile, history }) => {
 
   const [datafile, setFile] = useState({
-    flag: true,
-    status: true,
+    status: false,
     file: "", 
     error: {}
   });
 
   const { file, status } = datafile;
 
-  useEffect(() => {
-    if(data.msg) {
-      history.push('/menu');
-    }
-  })
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFile({
-      status: false
-    })
-    sendDataFile(file);
+    let res = await sendDataFile(file, history);
+    if (!res) {
+      setFile({
+        ...datafile,
+        status: res
+      });
+    }
   }
 
   const handleChange = (e) => {
@@ -34,7 +30,6 @@ const ImportFilms = ({ sendDataFile, data, history }) => {
 
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       setFile({
         ...datafile,
@@ -44,7 +39,7 @@ const ImportFilms = ({ sendDataFile, data, history }) => {
     reader.readAsText(file)
   }
 
-  return status ? 
+  return status ? <Spinner /> : 
     (<div className="container">
       <form className="center" onSubmit={(e)=> handleSubmit(e)}>
         <input className="fileInput" 
@@ -56,19 +51,20 @@ const ImportFilms = ({ sendDataFile, data, history }) => {
           }} />
         <button className="submitButton" 
           type="submit" 
-          disabled="true"
+          disabled={status}
           onClick={(e)=> {
             setFile({
               file: '',
+              status: true
             });
             handleSubmit(e)
           }}>Upload Films</button>
       </form>
-    </div>) : <Spinner />
+    </div>)
 };
 
 const mapStateToProps = state => ({
-  data: state.films.file
+  alert: state.alert
 });
 
 export default connect(mapStateToProps, { sendDataFile })(ImportFilms);
