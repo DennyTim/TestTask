@@ -12,11 +12,12 @@ export default class LocalService {
     return body;
   }
 
-  getAllFilms() {
+  async getAllFilms() {
     const options = {
       method: "GET"
     };
-    return this.getResource(`/films`, options);
+    
+    return await this.getResource(`/films`, options);
   }
 
   getOneFilm(id) {

@@ -42,16 +42,22 @@ router.get('/enum', async(req, res) => {
 });
 
 router.post('/import', upload.any(), async (req, res) => {
-  let data = req.files[0].buffer.toString('utf8');
-  //parse document
-  const arr = data.split('\n\n').reduce((acc, item) => {
-    let obj = {};
-    item.split('\n').map(el => {
-      if(el) return obj[`${el.split(/:/)[0].toLowerCase()}`] = el.split(/:/)[1];
-    });
-    return [...acc, obj];
-  },[]).filter(value => Object.keys(value).length !== 0)
 
+    let data = req.files[0].buffer.toString('utf8');
+
+    if(!data) {
+      return res.status(500).json('File not founded');
+    }
+
+    //parse document
+    const arr = data.split('\n\n').reduce((acc, item) => {
+      let obj = {};
+      item.split('\n').map(el => {
+        if(el) return obj[`${el.split(/:/)[0].toLowerCase()}`] = el.split(/:/)[1];
+      });
+      return [...acc, obj];
+    },[]).filter(value => Object.keys(value).length !== 0)
+  
   //Save films
   try {
     let acc = arr.map((item) => {

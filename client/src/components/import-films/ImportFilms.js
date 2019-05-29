@@ -1,24 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sendDataFile } from '../../actions/films';
 import { connect } from 'react-redux';
+import Spinner from '../spinner';
 import './import-films.css';
 
-const ImportFilms = ({ sendDataFile, history }) => {
+const ImportFilms = ({ sendDataFile, data, history }) => {
 
   const [datafile, setFile] = useState({
+    status: true,
     file: "", 
-    preview: "", 
     error: {}
   });
 
-  const { file } = datafile;
+  const { file, status } = datafile;
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if(data.msg === 'ok') {
+      history.push('/menu');
+    }
+  })
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    sendDataFile(file, history);
+    setFile({
+      status: false
+    })
+    sendDataFile(file);
   }
 
-  const handleImageChange = (e) => {
+  const handleChange = (e) => {
     e.preventDefault();
 
     let reader = new FileReader();
@@ -26,30 +36,38 @@ const ImportFilms = ({ sendDataFile, history }) => {
 
     reader.onloadend = () => {
       setFile({
-        file: file,
-        preview: reader.result
+        ...datafile,
+        file: file
       });
     }
-
     reader.readAsText(file)
   }
 
-  return (
-    <div className="container">
+  return status ? 
+    (<div className="container">
       <form className="center" onSubmit={(e)=> handleSubmit(e)}>
         <input className="fileInput" 
           type="file" 
-          onChange={(e)=> handleImageChange(e)} />
+          onChange={(e)=> {
+            handleChange(e)
+            let elem = document.querySelector('.submitButton');
+            elem.removeAttribute("disabled");
+          }} />
         <button className="submitButton" 
           type="submit" 
-          onClick={(e)=> handleSubmit(e)}>Upload Films</button>
+          disabled={datafile.flag}
+          onClick={(e)=> {
+            setFile({
+              file: '',
+            });
+            handleSubmit(e)
+          }}>Upload Films</button>
       </form>
-    </div>
-  )
+    </div>) : <Spinner />
 };
 
 const mapStateToProps = state => ({
-  file: state.films.file
+  data: state.films.file
 });
 
 export default connect(mapStateToProps, { sendDataFile })(ImportFilms);

@@ -87,7 +87,7 @@ export const getListFormat = () => async dispatch => {
   }
 }
 
-export const sendDataFile = (file, history) => async dispatch => {
+export const sendDataFile = (file) => async dispatch => {
   try {
     const service = new LocalService();
     const newData = await service.sendFile(file);
@@ -95,7 +95,6 @@ export const sendDataFile = (file, history) => async dispatch => {
       type: ADD_FILE,
       payload: newData
     });
-    history.push('/menu');
   } catch (err) {
     console.log(err);
   }
