@@ -7,6 +7,7 @@ import './import-films.css';
 const ImportFilms = ({ sendDataFile, data, history }) => {
 
   const [datafile, setFile] = useState({
+    flag: true,
     status: true,
     file: "", 
     error: {}
@@ -15,7 +16,7 @@ const ImportFilms = ({ sendDataFile, data, history }) => {
   const { file, status } = datafile;
 
   useEffect(() => {
-    if(data.msg === 'ok') {
+    if(data.msg) {
       history.push('/menu');
     }
   })
@@ -55,7 +56,7 @@ const ImportFilms = ({ sendDataFile, data, history }) => {
           }} />
         <button className="submitButton" 
           type="submit" 
-          disabled={datafile.flag}
+          disabled="true"
           onClick={(e)=> {
             setFile({
               file: '',
