@@ -22,3 +22,11 @@
   line-height: 1.2;
   margin-bottom: 1rem;
 }
+
+.absolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}

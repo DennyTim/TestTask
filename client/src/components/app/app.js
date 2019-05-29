@@ -23,7 +23,7 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <Navbar />
-          <Alert />
+            <div className="absolute"><Alert /></div> 
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/menu" component={Films} />

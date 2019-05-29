@@ -23,7 +23,7 @@ const reqImg = async (title, done) => {
 
 router.get('/films', async (req, res) => {
   try {
-    const films = await Film.find({}).sort({ title: 1});
+    const films = await Film.find({})//.sort({ title: 1});
     res.json(films);
   } catch (error) {
     console.error(error.message);
@@ -74,7 +74,7 @@ router.post('/import', upload.any(), async (req, res) => {
       return film;
     });
     await Film.insertMany(acc);
-    return res.status(200).json({msg: 'ok'});
+    return res.status(200).json({msg: 'File successfully transferred'});
   } catch (error) {
     const { name, message } = error;
     return res.status(500).json({ name, message});

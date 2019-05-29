@@ -13,7 +13,8 @@ import './films.css';
 class Films extends Component {
     state = {
       displayedfilms: null,
-      fieldOfSearch: 'title'
+      fieldOfSearch: 'title',
+      sortMode: 'Alphabet a-z' 
     }
   
     componentDidMount() {
@@ -25,12 +26,47 @@ class Films extends Component {
         this.updateList()
       }
     }
-  
+    
     updateList() {
       const { films } = this.props;
+      const { sortMode } = this.state;
+      let sortFilms = this.sorting(films, sortMode);
       this.setState({
-        displayedfilms: films
+        displayedfilms: sortFilms
       })
+    }
+
+    dropdown(e) {
+      let items = [...document.querySelectorAll('.sort-elem')];
+      items.forEach((item) => item.classList.toggle('item-active'));
+    }
+
+    sorting(films, sortMode) {
+      switch(sortMode) {
+        case 'Alphabet a-z':
+          return films.sort(function(a, b) {
+            let textA = a.title.toUpperCase();
+            let textB = b.title.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+          })
+        case 'Alphabet z-a':
+          return films.sort(function(a, b) {
+            let textA = a.title.toUpperCase();
+            let textB = b.title.toUpperCase();
+            return (textA < textB) ? 1 : (textA > textB) ? -1 : 0;
+          })
+        default:
+          return 'Alphabet a-z';
+      }
+    }
+
+    setSortMode(e) {
+      const { displayedfilms } = this.state;
+      this.setState({
+        sortMode: e.target.textContent,
+        displayedfilms: this.sorting(displayedfilms, e.target.textContent)
+      })
+      this.dropdown(e);
     }
   
     handleTitle = e => {
@@ -39,7 +75,6 @@ class Films extends Component {
         let searchValue = el.title.toLowerCase()
         return searchValue.indexOf(searchQuery) !== -1;
       });
-      console.log(displayedfilms);
       this.setState({
         displayedfilms: displayedfilms
       })
@@ -75,21 +110,30 @@ class Films extends Component {
     }
   
     render() {
-      const { displayedfilms, fieldOfSearch } = this.state;
+      const { displayedfilms, fieldOfSearch, sortMode } = this.state;
       
       return (!displayedfilms) ? <Spinner /> : (
         <div className="container">
-          <div className="search"> 
-            <div className="search-block">
-              <input className="search-input" 
-                      type="search" 
-                      placeholder="Search" 
-                      onChange={e => (fieldOfSearch === 'title') ? this.handleTitle(e) : this.handleUser(e)}/>
-              <div className="icon"></div>
+          <div className="top">
+            <div className="dropdown-menu">
+              <div className="sort-field" onClick={(e) => this.dropdown(e)}>{sortMode}</div>
+              <ul className="sort-items" onClick={(e) => this.setSortMode(e)}>
+                <li className="sort-elem">Alphabet a-z</li>
+                <li className="sort-elem">Alphabet z-a</li>
+              </ul>
             </div>
-            <div className="settings-icon">
-              <i className="fas fa-heading fas-active" onClick={e => this.onClick(e)}></i>
-              <i className="fas fa-user" onClick={e => this.onClick(e)}></i>
+            <div className="search"> 
+              <div className="search-block">
+                <input className="search-input" 
+                        type="search" 
+                        placeholder="Search" 
+                        onChange={e => (fieldOfSearch === 'title') ? this.handleTitle(e) : this.handleUser(e)}/>
+                <div className="icon"></div>
+              </div>
+              <div className="settings-icon">
+                <i className="fas fa-heading fas-active" onClick={e => this.onClick(e)}></i>
+                <i className="fas fa-user" onClick={e => this.onClick(e)}></i>
+              </div>
             </div>
           </div>
           <ul className="block-films">

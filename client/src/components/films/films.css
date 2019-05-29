@@ -1,3 +1,52 @@
+/* Dropdown */
+.top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: relative;
+}
+
+.sort-field {
+  margin-top: 10px;
+  margin-right: 20px;
+  background-color: #2f3542;
+  border-radius: 10px;
+  color: #fff;
+  padding: 15px 20px 15px 10px;
+  width: 170px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.sort-items {
+  position: absolute;
+  margin-top: -10px;
+}
+
+.sort-elem {
+  background-color: #2f3542;
+  width: 170px;
+  color: #fff;
+  height: 0px;
+  opacity: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.item-active {
+  opacity: 1;
+  padding: 20px 20px 15px 10px;
+  height: auto;
+}
+
+/* -------- */
+
 .films-empty {
   margin-top: 20px;
   font-family: 'Montserrat', sans-serif;
@@ -15,15 +64,16 @@
 
 .search {
   margin-top: 10px;
-  display: flex;
+  display: inline-block;
   justify-content: center;
   position: relative;
+  width: 350px;
 }
 
 .settings-icon {
   width: 60px;
   position: absolute;
-  right: 35%;
+  right: 0%;
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
